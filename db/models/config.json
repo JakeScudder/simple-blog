@@ -1,0 +1,15 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./blog-restapi.db",
+    "logging": false 
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "./blog-restapi.db"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "./blog-restapi.db"
+  }
+}
