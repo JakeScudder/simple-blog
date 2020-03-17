@@ -5,6 +5,12 @@ const morgan = require('morgan');
 // create the Express app
 const app = express();
 const { sequelize } = require('./db/models');
+
+//Create Tables
+
+sequelize.sync({force: true})
+
+
 app.use(express.json());
 
 // setup morgan which gives us http request logging

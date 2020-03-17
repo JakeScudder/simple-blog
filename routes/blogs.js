@@ -17,7 +17,6 @@ function asyncHandler(cb){
 
 /* Get Blog Posts*/
 router.get('/blog', asyncHandler(async (req, res) => {
-  console.log(Blog);
   res.status(200).json({test: "home route"});
 }))
 
@@ -48,7 +47,7 @@ router.post('/new', asyncHandler(async (req, res) => {
   let blogPost;
   try {
     blogPost = await Blog.create(req.body);
-    res.redirect("/");
+    res.json({blogPost});
   } catch (error) {
     console.log(error);
   }

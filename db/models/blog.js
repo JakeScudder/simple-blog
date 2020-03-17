@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
     title: Sequelize.STRING,
     author: Sequelize.STRING,
     body: Sequelize.TEXT,
-  }, { freezeTableName: true, sequelize });
+  }, { sequelize });
 
   return Blog;
 };
