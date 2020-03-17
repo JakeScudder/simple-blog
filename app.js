@@ -6,9 +6,8 @@ const morgan = require('morgan');
 const app = express();
 const { sequelize } = require('./db/models');
 
-//Create Tables
-
-sequelize.sync({force: true})
+//Initially Create Tables: Not needed after Table creation?
+// sequelize.sync({force: true})
 
 
 app.use(express.json());
