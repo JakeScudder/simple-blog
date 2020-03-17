@@ -4,10 +4,15 @@ const Sequelize = require('sequelize');
 module.exports = (sequelize) => {
   class Blog extends Sequelize.Model {}
   Blog.init({
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
     title: Sequelize.STRING,
     author: Sequelize.STRING,
-    body: Sequelize.TEXT
-  }, { sequelize });
+    body: Sequelize.TEXT,
+  }, { freezeTableName: true, sequelize });
 
   return Blog;
 };

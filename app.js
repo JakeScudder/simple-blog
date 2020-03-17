@@ -1,10 +1,11 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const morgan = require('morgan');
 
 // create the Express app
 const app = express();
 const { sequelize } = require('./db/models');
+app.use(express.json());
 
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
@@ -12,16 +13,18 @@ app.use(morgan('dev'));
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
-const routes = require('./routes/index');
-const blogRoutes = require('./routes/blogRoutes');
+//Testing dependencies
+const bodyParser = require('body-parser'); 
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: false }))
 
+const blogs = require('./routes/blogs');
 
-
-app.use('/api', blogRoutes);
+app.use('/api', blogs);
 
 app.get('/', (req, res) => {
   res.json({
-    message: 'Welcome to the REST API project!',
+    message: 'Hey You',
   });
 });
 
