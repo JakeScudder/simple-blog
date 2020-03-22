@@ -36,7 +36,7 @@ router.post('/new', [
   check('author')
     .exists({checkNull: true, checkFalsy: true})
     .withMessage('Please include your "name"'),
-  check('body')
+  check('post')
     .exists({checkNull: true, checkFalsy: true})
     .withMessage('Please include your "blog post"'),
 ], asyncHandler(async (req, res) => {
@@ -61,5 +61,37 @@ router.post('/new', [
 }));
 
 // PUT  Create Update Blog route
+router.put('/blog/:id', [
+  check('title') 
+    .exists({ checkNull: true, checkFalsy: true })
+    .withMessage('Please include your "blog title"'),
+  check('post') 
+    .exists({ checkNull: true, checkFalsy: true })
+    .withMessage('Blog post is blank'),
+], asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
+  //If there are errors
+  if(!errors.isEmpty()) {
+    const errorMessages = errors.array().map(error => error.msg);
+    return res.status(400).json({errors: errorMessages});
+  }
+  //Update Blog
+  try {
+    let blog = await Blog.findByPk(req.params.id);
+    console.log("blog title:", blog.title);
+    console.log("req.params.id:", req.params.id);
+    if (blog) {
+      blog.title = req.body.title;
+      blog.post = req.body.post;
+      await blog.update(req.body);
+      res.status(204).end();
+    } else {
+      res.status(404).json({message: "Sorry, we couldn't locate that blog post."})
+    }
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  }
+}));
+
 
 module.exports = router;

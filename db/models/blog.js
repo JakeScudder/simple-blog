@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
     },
     title: Sequelize.STRING,
     author: Sequelize.STRING,
-    body: Sequelize.TEXT,
+    post: Sequelize.TEXT,
   }, { sequelize });
 
   return Blog;
