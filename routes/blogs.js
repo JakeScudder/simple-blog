@@ -93,5 +93,21 @@ router.put('/blog/:id', [
   }
 }));
 
+//DELETE route deletes a course, returns no content
+router.delete('/blog/:id', asyncHandler( async (req, res) => {
+  try {
+    // const user = req.currentUser;
+    let blogPost = await Blog.findByPk(req.params.id);
+    if (blogPost) {
+        await blogPost.destroy();
+        res.status(204).end();
+      } else {
+        res.status(403).json({message: "Sorry, we can't located the blog post to be deleted"})
+      }
+  } catch(error) {
+    res.status(500).json({message: error.message})
+  }
+}));
+
 
 module.exports = router;
